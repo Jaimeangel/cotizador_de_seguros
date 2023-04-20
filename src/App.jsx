@@ -1,7 +1,9 @@
+import AppSeguros from "./components/AppSeguros"
+
 function App() {
   return (
     <>
-    <h1>Aqui desde VITE APP</h1>
+      <AppSeguros/>
     </>
   )
 }
