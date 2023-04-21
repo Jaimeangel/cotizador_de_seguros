@@ -1,10 +1,13 @@
 import { MARCAS,AÑOS_SEGURO,PLANES} from "../constanst"
+import CotizadorContext from "../context/CotizadorProvider"
+import { useContext } from "react"
 
 function Formulario() {
+    const {hola}=useContext(CotizadorContext)
+    console.log(hola)
   return (
     <>
         <form>
-
             <div className="my-4">
                 <label className="block mb-3 font-bold uppercase text-gray-400">Marca</label>
                 <select 
@@ -68,7 +71,6 @@ function Formulario() {
                         text-white py-2 rounded-lg cursor-pointer font-bold uppercase shadow-lg"
             />
         </form>
-      
     </>
   )
 }
