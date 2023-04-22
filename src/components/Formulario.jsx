@@ -8,7 +8,8 @@ function Formulario() {
         handleChangeValues,
         datos,
         error,
-        setError
+        setError,
+        cotizarSeguroAuto
     }=useCotizador()
 
     function validateData(e){
@@ -18,7 +19,9 @@ function Formulario() {
             return
         }
         setError('')
+        cotizarSeguroAuto()
     }
+    
     return(
         <>
             <form onSubmit={(e)=>validateData(e)}>
