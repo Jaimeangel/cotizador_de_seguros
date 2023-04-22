@@ -1,18 +1,34 @@
 import {MARCAS,AÑOS_SEGURO,PLANES} from "../constanst"
 import useCotizador from "../hooks/useCotizador"
+import Error from "./Error"
 
 function Formulario() {
 
-    const {hola}=useCotizador()
-    console.log(hola)
+    const {
+        handleChangeValues,
+        datos,
+        error,
+        setError
+    }=useCotizador()
+
+    function validateData(e){
+        e.preventDefault()
+        if(Object.values(datos).includes('')){
+            setError('Todos los campos son obligatorios')
+            return
+        }
+        setError('')
+    }
     return(
         <>
-            <form>
+            <form onSubmit={(e)=>validateData(e)}>
+                {error && <Error/>}
                 <div className="my-4">
                     <label className="block mb-3 font-bold uppercase text-gray-400">Marca</label>
                     <select 
                         name="marca"
                         className="w-full p-3 bg-white border border-gray-200"
+                        onChange={(e)=>handleChangeValues(e)}
                     >
                         <option value="">Seleccione una marca</option>
                         {
@@ -32,8 +48,9 @@ function Formulario() {
                 <div className="my-4">
                     <label className="block mb-3 font-bold uppercase text-gray-400">Año</label>
                     <select 
-                        name="marca"
+                        name="year"
                         className="w-full p-3 bg-white border border-gray-200"
+                        onChange={(e)=>handleChangeValues(e)}
                     >
                         <option value="">Seleccione un año</option>
                         {
@@ -57,7 +74,7 @@ function Formulario() {
                             PLANES.map(plan=>(
                                 <div key={plan.id} className="flex gap-2 items-center">
                                     <label>{plan.plan}</label>
-                                    <input type="radio" name="plan" id={plan.id}/>
+                                    <input onChange={(e)=>handleChangeValues(e)} type="radio" name="plan" value={plan.id}/>
                                 </div>
                             ))
                         }
@@ -75,4 +92,4 @@ function Formulario() {
     )
 }
 
-export default Formulario
+export default Formulario;
