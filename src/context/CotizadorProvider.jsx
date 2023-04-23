@@ -1,5 +1,5 @@
 import { createContext , useState} from "react"
-import { diferenciaYear, marcaAuto, typePlan} from "../helpers"
+import { diferenciaYear, marcaAuto, typePlan,formatCash} from "../helpers"
 
 const CotizadorContext= createContext()
 
@@ -7,6 +7,8 @@ function CotizadorProvider({children}){
 
     const [datos,setDatos]=useState({marca:'', year:'', plan:''})
     const [error,setError]=useState('')
+    const [resultado,setResultado]=useState(0)
+    const [cargando,setCargando]=useState(false)
 
     const handleChangeValues=(e)=>{
         setDatos({
@@ -26,7 +28,15 @@ function CotizadorProvider({children}){
 
         base *= typePlan(datos.plan)
 
-        return base
+        base = formatCash(base)
+
+        setCargando(true)
+
+        setTimeout(() => {
+            setResultado(base)
+            setCargando(false)
+        }, 2000);
+
     }
     return(
         <CotizadorContext.Provider
@@ -35,7 +45,9 @@ function CotizadorProvider({children}){
                 datos,
                 error,
                 setError,
-                cotizarSeguroAuto 
+                cotizarSeguroAuto,
+                resultado,
+                cargando 
             }}
         >
             {children}

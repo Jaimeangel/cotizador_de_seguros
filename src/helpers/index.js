@@ -23,3 +23,10 @@ export const marcaAuto=(marca)=>{
 export const typePlan=(type)=>{
     return type=== "1" ? 1.20 : 1.50
 }
+
+export const formatCash=(cash)=>{
+    return cash.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      });
+}
